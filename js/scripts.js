@@ -14,21 +14,9 @@ $(document).ready(function(){
         // console.log(nowPlayingData);
         var nowPlayingHTML = getHTML(nowPlayingData);
         $('#movie-grid').html(nowPlayingHTML);
-        $('.movie-poster').click(function(){
-            // Change the HTML inside the modal
-            var thisMovieId = $(this).attr('movie-id');
-            console.log(thisMovieId);
-            var thisMovieUrl = `${apiBaseUrl}/movie/${thisMovieId}?api_key=${apiKey}`;
-            $.getJSON(thisMovieUrl,(thisMovieData)=>{
-                console.log(thisMovieData);
-                $('#myModalLabel').html(thisMovieData.title);
-                $('.modal-body').html('<h3>Overview</h3><br />' + thisMovieData.overview);
-                // Then open the modal
-
-                $('#myModal').modal();
-            });
-        });
+        getModalOnClick();
     });
+
 
     $('#movie-form').submit((event)=>{
         event.preventDefault(); // Stop browser from submitting because we're gonna handle it
@@ -40,6 +28,7 @@ $(document).ready(function(){
         $.getJSON(searchUrl,(searchMovieData)=>{
             var searchMovieHTML = getHTML(searchMovieData);
             $('#movie-grid').html(searchMovieHTML);
+            getModalOnClick();
         });
     });
 
@@ -53,4 +42,38 @@ $(document).ready(function(){
         }
         return newHTML;
     }
+
+    function getModalOnClick(){
+        $('.movie-poster').click(function(){
+            // Change the HTML inside the modal
+            var thisMovieId = $(this).attr('movie-id');
+            console.log(thisMovieId);
+            var thisMovieUrl = `${apiBaseUrl}/movie/${thisMovieId}?api_key=${apiKey}`;
+            $.getJSON(thisMovieUrl,(thisMovieData)=>{
+                console.log(thisMovieData);
+                $('#myModalLabel').html(thisMovieData.title);
+                var newMovieHTML = '';
+                    newMovieHTML += '<div class="modal-details">';
+                        newMovieHTML = '<h3>Overview</h3>';
+                        newMovieHTML += thisMovieData.overview;
+                    newMovieHTML += '</div>';
+                    newMovieHTML += '<div class="modal-details">';
+                        newMovieHTML += 'Release Date: ' + thisMovieData.release_date;
+                    newMovieHTML += '</div>';
+                    newMovieHTML += '<div class="modal-details">';
+                        newMovieHTML += 'Rating: ' + Math.round(thisMovieData.popularity) + '%';
+                    newMovieHTML += '</div>';
+                    newMovieHTML += '<div class="modal-details">';
+                        newMovieHTML += 'Runtime: ' + thisMovieData.runtime + ' minutes';
+                    newMovieHTML += '</div>';
+                    newMovieHTML += '<div class="modal-details">';
+                        newMovieHTML += '<a href="' + thisMovieData.homepage + '">Website</a>';
+                    newMovieHTML += '</div>';
+                $('.modal-body').html(newMovieHTML);
+                // Then open the modal
+                $('#myModal').modal();
+            });
+        });
+    }
+
 });

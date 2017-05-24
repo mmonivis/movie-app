@@ -5,6 +5,9 @@ body{
 
 img{
     max-width: 100%;
+    /* padding: 20px; */
+    margin: 5px;
+    border: 1px solid black;
 }
 
 h1{
@@ -12,8 +15,14 @@ h1{
     font-family: 'Limelight', cursive;
 }
 
+.content{
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border: 10px double black;
+}
+
 .header{
-    color: white;
     margin-top: 20px;
 }
 
@@ -24,4 +33,10 @@ h1{
 
 #search-input{
     width: 25%;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.modal-details{
+    margin-top: 20px;
 }
