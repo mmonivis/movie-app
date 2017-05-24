@@ -30,6 +30,7 @@ $(document).ready(function(){
             $('#movie-grid').html(searchMovieHTML);
             getModalOnClick();
         });
+        $('.movie-search').html('<h2>Movie search for: ' + userInput + '</h2>');
     });
 
     function getHTML(data){
@@ -67,7 +68,7 @@ $(document).ready(function(){
                         newMovieHTML += 'Runtime: ' + thisMovieData.runtime + ' minutes';
                     newMovieHTML += '</div>';
                     newMovieHTML += '<div class="modal-details">';
-                        newMovieHTML += '<a href="' + thisMovieData.homepage + '">Website</a>';
+                        newMovieHTML += '<a href="' + thisMovieData.homepage + '" target="_blank">Website</a>';
                     newMovieHTML += '</div>';
                 $('.modal-body').html(newMovieHTML);
                 // Then open the modal
