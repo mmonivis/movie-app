@@ -1,0 +1,27 @@
+body{
+    background-color: #851400;
+    background-image: url('../images/black-linen.png');
+}
+
+img{
+    max-width: 100%;
+}
+
+h1{
+    font-size: 40px;
+    font-family: 'Limelight', cursive;
+}
+
+.header{
+    color: white;
+    margin-top: 20px;
+}
+
+#search-container, #movie-grid{
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#search-input{
+    width: 25%;
+}
