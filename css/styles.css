@@ -8,7 +8,16 @@ img{
     /* padding: 20px; */
     margin: 5px;
     border: 1px solid black;
-    height: 300px;
+    height: 200px;
+}
+
+.movie-poster-div{
+    padding: 0px;
+    text-align: center;
+}
+
+.movie-grid-div{
+    left: 73px;
 }
 
 h1,h2{
@@ -17,6 +26,10 @@ h1,h2{
 }
 
 h2{
+    font-size: 20px;
+}
+
+h3{
     font-size: 20px;
 }
 

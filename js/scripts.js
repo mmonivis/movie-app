@@ -9,17 +9,34 @@ $(document).ready(function(){
     const nowPlayingUrl = apiBaseUrl + '/movie/now_playing?api_key=' + apiKey;
     // console.log(nowPlayingUrl);
 
+    var buttonsHTML = '';
+    buttonsHTML += '<button id="all-genres" class="btn btn-default">All Genres</button>';
+    for(let i = 0; i < genreArray.length; i++){
+        buttonsHTML += `<button class="btn btn-default genre-button">${genreArray[i].name}</button>`;
+    }
+    $('#genre-buttons').html(buttonsHTML);
+
     // Make AJAX request to the nowPlayingUrl
     $.getJSON(nowPlayingUrl,(nowPlayingData)=>{
         // console.log(nowPlayingData);
         var nowPlayingHTML = getHTML(nowPlayingData);
         $('#movie-grid').html(nowPlayingHTML);
         getModalOnClick();
+        $grid = $('#movie-grid').isotope({
+            itemSelector: '.movie-poster'
+        });
+        $('#all-genres').click(function(){
+            $grid.isotope({ filter: ''});
+        });
+        $('.genre-button').click(function(){
+            // console.dir(this.innerText);
+            $grid.isotope({filter: '.' + this.innerText})
+        });
     });
 
 
     $('#movie-form').submit((event)=>{
-        event.preventDefault(); // Stop browser from submitting because we're gonna handle it
+        event.preventDefault(); // Don't submit form! JS will handle
         var userInput = $('#search-input').val();
         $('#search-input').val('');
         var safeUserInput = encodeURI(userInput);
@@ -36,8 +53,27 @@ $(document).ready(function(){
     function getHTML(data){
         var newHTML = '';
         for(let i = 0; i < data.results.length; i++){
+
+            // Set up a var for the genre ids for THIS movie
+            var thisMovieGenres = data.results[i].genre_ids;
+            var movieGenreClassList = " ";
+
+            // Loop through all known genres
+            for (let j = 0; j < genreArray.length; j++){
+                // The genre that we are on (genreArray[j]), check to see
+                // if it is in THIS movies genres id list
+                if(thisMovieGenres.indexOf(genreArray[j].id) > -1){
+                    // HIT! This genre_id is in THIS movie's genre id list
+                    // So we need to add the name to the class list
+                    movieGenreClassList += genreArray[j].name + " ";
+                }
+                // console.log(genreArray[j].id);
+            }
+
+            // console.log(movieGenreClassList);
+
             var posterUrl = imageBaseUrl + 'w300' + data.results[i].poster_path;
-            newHTML += '<div class="col-sm-6 col-md-3 movie-poster" movie-id='+ data.results[i].id + '>';
+            newHTML += '<div class="movie-poster-div col-xs-6 col-sm-4 col-md-3 col-lg-2 movie-poster '+movieGenreClassList+'"" movie-id='+ data.results[i].id + '>';
                 newHTML += `<img src="${posterUrl}">`;
             newHTML += '</div>';
         }
@@ -55,20 +91,24 @@ $(document).ready(function(){
                 $('#myModalLabel').html(thisMovieData.title);
                 var newMovieHTML = '';
                     newMovieHTML += '<div class="modal-details">';
-                        newMovieHTML = '<h3>Overview</h3>';
+                        newMovieHTML += '<h3>Overview</h3>';
                         newMovieHTML += thisMovieData.overview;
                     newMovieHTML += '</div>';
                     newMovieHTML += '<div class="modal-details">';
-                        newMovieHTML += 'Release Date: ' + thisMovieData.release_date;
+                        newMovieHTML += '<h3>Release Date</h3>';
+                        newMovieHTML += thisMovieData.release_date;
                     newMovieHTML += '</div>';
                     newMovieHTML += '<div class="modal-details">';
-                        newMovieHTML += 'Rating: ' + Math.round(thisMovieData.popularity) + '%';
+                        newMovieHTML += '<h3>Rating</h3>';
+                        newMovieHTML += Math.round(thisMovieData.popularity) + '%';
                     newMovieHTML += '</div>';
                     newMovieHTML += '<div class="modal-details">';
-                        newMovieHTML += 'Runtime: ' + thisMovieData.runtime + ' minutes';
+                        newMovieHTML += '<h3>Runtime</h3>';
+                        newMovieHTML += thisMovieData.runtime + ' minutes';
                     newMovieHTML += '</div>';
                     newMovieHTML += '<div class="modal-details">';
-                        newMovieHTML += '<a href="' + thisMovieData.homepage + '" target="_blank">Website</a>';
+                        newMovieHTML += '<h3>Homepage</h3>';
+                        newMovieHTML += '<a href="' + thisMovieData.homepage + '" target="_blank">' + thisMovieData.homepage + '</a>';
                     newMovieHTML += '</div>';
                 $('.modal-body').html(newMovieHTML);
                 // Then open the modal
