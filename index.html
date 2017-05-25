@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
     <!-- jQuery Link -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,7 +23,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container fluid">
     <div class="content">
 
         <div class="header col-sm-12 text-center">
@@ -30,7 +31,7 @@
         </div>
 
         <!-- Search Bar Row -->
-        <div class="row">
+        <div class="row text-center">
             <div id="search-container" class="col-sm-12 text-center">
                 <form id="movie-form">
                     <input id="search-input" type="text" placeholder="Enter your movie search here" />
@@ -42,9 +43,9 @@
                 <h2>Now Playing</h2>
             </div>
 
-            <div id="genre-buttons" class="col-sm-12 text-center">
-                <!-- jQuery put our buttons in! -->
-            </div>
+                <button id="filter-button" class="btn btn-default">Filter by Genre</button>
+
+            <div id="genre-buttons" class="col-sm-12 text-center"></div>
 
             <div id="movie-grid" class="col-sm-12 movie-grid-div">
                 <!-- jQuery, don't fail us now, get the movie posters! -->

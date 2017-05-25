@@ -9,12 +9,17 @@ $(document).ready(function(){
     const nowPlayingUrl = apiBaseUrl + '/movie/now_playing?api_key=' + apiKey;
     // console.log(nowPlayingUrl);
 
+
     var buttonsHTML = '';
     buttonsHTML += '<button id="all-genres" class="btn btn-default">All Genres</button>';
     for(let i = 0; i < genreArray.length; i++){
         buttonsHTML += `<button class="btn btn-default genre-button">${genreArray[i].name}</button>`;
     }
     $('#genre-buttons').html(buttonsHTML);
+    $('#filter-button').click(function(){
+        $('#genre-buttons').slideToggle( "slow", function(){
+        });
+    });
 
     // Make AJAX request to the nowPlayingUrl
     $.getJSON(nowPlayingUrl,(nowPlayingData)=>{
@@ -23,7 +28,7 @@ $(document).ready(function(){
         $('#movie-grid').html(nowPlayingHTML);
         getModalOnClick();
         $grid = $('#movie-grid').isotope({
-            itemSelector: '.movie-poster'
+            itemSelector: '.movie-poster',
         });
         $('#all-genres').click(function(){
             $grid.isotope({ filter: ''});
@@ -116,5 +121,4 @@ $(document).ready(function(){
             });
         });
     }
-
 });

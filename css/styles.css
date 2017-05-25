@@ -1,28 +1,16 @@
+*{
+    font-family: 'Raleway', sans-serif;
+}
+
 body{
     background-color: #851400;
     background-image: url('../images/black-linen.png');
 }
 
-img{
-    max-width: 100%;
-    /* padding: 20px; */
-    margin: 5px;
-    border: 1px solid black;
-    height: 200px;
-}
-
-.movie-poster-div{
-    padding: 0px;
-    text-align: center;
-}
-
-.movie-grid-div{
-    left: 73px;
-}
-
-h1,h2{
+h1,h2,h3{
     font-size: 40px;
     font-family: 'Limelight', cursive;
+    font-weight: bold;
 }
 
 h2{
@@ -30,7 +18,24 @@ h2{
 }
 
 h3{
-    font-size: 20px;
+    font-size: 16px;
+}
+
+img{
+    width: 100%;
+    margin: 10px;
+    border: 1px solid black;
+    height: 300px;
+}
+
+.movie-poster-div{
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
+}
+
+.movie-grid-div{
+    left: 35px;
 }
 
 .content{
@@ -46,7 +51,7 @@ h3{
 
 #search-container, #movie-grid{
     margin-top: 10px;
-    padding-top: 10px;
+    padding-top: 10px;poster
     margin-bottom: 10px;
 }
 
@@ -58,4 +63,8 @@ h3{
 
 .modal-details{
     margin-top: 20px;
+}
+
+#filter-button{
+    margin-bottom: 5px;
 }
